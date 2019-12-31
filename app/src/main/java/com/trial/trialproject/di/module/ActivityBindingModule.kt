@@ -1,13 +1,12 @@
 package com.trial.trialproject.di.module
-
-import com.trial.trialproject.ui.MainActivity
+import com.trial.trialproject.ui.main.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivityBindingModule {
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [MainViewModelModule::class])
     abstract fun bindMainActivity(): MainActivity
 
 }
