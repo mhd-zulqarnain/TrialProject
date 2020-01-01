@@ -1,15 +1,14 @@
 package com.trial.trialproject.ui.main.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.trial.trialproject.R
-import com.trial.trialproject.data.Employee
+import com.trial.trialproject.data.local.Country
 import com.trial.trialproject.databinding.SingleMainViewHolderBinding
 
-class MainRecyclerViewAdapter(val ctx: Context, val dataList: ArrayList<Employee>) :
+class MainRecyclerViewAdapter(val dataList: ArrayList<Country>) :
     RecyclerView.Adapter<MainRecyclerViewAdapter.MainViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -42,8 +41,8 @@ class MainRecyclerViewAdapter(val ctx: Context, val dataList: ArrayList<Employee
 
             bindingView = itemView
         }
-        fun bindView(employee: Employee) {
-            bindingView.countries = employee
+        fun bindView(country: Country) {
+            bindingView.countries = country
         }
 
     }

@@ -5,7 +5,7 @@
 
         <variable
             name="countries"
-            type="com.trial.trialproject.data.Employee" />
+            type="com.trial.trialproject.data.local.Country" />
     </data>
 
     <LinearLayout
@@ -17,6 +17,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:text="@{countries.employee_name}" />
+            android:text="@{countries.name}" />
     </LinearLayout>
 </layout>

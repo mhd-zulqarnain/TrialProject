@@ -1,16 +1,15 @@
 package com.trial.trialproject.ui.main.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.gson.reflect.TypeToken
 import com.trial.trialproject.architecture.CountryRepository
-import com.trial.trialproject.data.Employee
-import com.trial.trialproject.retrofit.TrailServices
+import com.trial.trialproject.data.local.Country
 import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 const val TAG = "MainViewModel"
@@ -19,52 +18,63 @@ class MainViewModel @Inject constructor(
     var countryRepository: CountryRepository
 ) : ViewModel() {
 
-    val job = Job()
-    val coroutineScope = CoroutineScope(Dispatchers.Main + job)
-
     //network check mutabledata
-    var _network = MutableLiveData<Boolean>(false)
-    var networkCheckLiveData = MutableLiveData<Boolean>(false)
+    var _network = MutableLiveData<Boolean>()
+    var networkCheckLiveData: LiveData<Boolean> = _network
 
     //country livedata
-    var _countryResponse = MutableLiveData<List<Employee>>()
-    var liveCountryResponse: LiveData<List<Employee>> = _countryResponse
+    var _countryResponse = MutableLiveData<List<Country>>()
+    var liveCountryResponse: LiveData<List<Country>> = _countryResponse
 
     init {
-        getCountries()
+        initiateNetworkCheck()
 
     }
 
     fun getCountries() {
-        coroutineScope.launch {
+        viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val list = countryRepository.getCountries()
-                if (list.size != 0) {
-                    withContext(Dispatchers.Main) {
-                        _countryResponse.value = list
-                        Log.d(TAG, "_countryResponse ${list.size}")
-
+                withContext(Dispatchers.IO)
+                {
+                    val response = countryRepository.getDataFromUrl("localdata_1.json")
+                    if (response.body() != null && response.code() == 200) {
+                        val tmp =
+                            (response.body()!!.get("body") as JsonObject)
+                                .getAsJsonArray("countries")
+                        val type = object : TypeToken<ArrayList<Country>>() {}.type
+                        val list: ArrayList<Country>
+                        list = Gson().fromJson(Gson().toJson(tmp), type)
+                        if (list.size != 0) {
+                            withContext(Dispatchers.Main) {
+                                _countryResponse.value = list
+                            }
+                        }
                     }
                 }
             }
         }
     }
 
-    fun getLiveDataResponse(): LiveData<List<Employee>> {
+    fun getLiveDataResponse(): LiveData<List<Country>> {
         return liveCountryResponse
     }
 
-
-    fun initiateNetorkCheck(){
-
+    //network connection check
+    fun initiateNetworkCheck() {
+        _network.value = true
     }
-    fun networkCheck(): LiveData<Boolean> {
+
+    fun setNetworkOffline() {
+        _network.value = false
+    }
+
+    fun setNetworkOnline() {
+        _network.value = true
+        getCountries()
+    }
+
+    fun networkStatus(): LiveData<Boolean> {
         return networkCheckLiveData
     }
 
-    //cancelling jobs onclear of viewmodel
-    override fun onCleared() {
-        super.onCleared()
-        job.cancel()
-    }
 }

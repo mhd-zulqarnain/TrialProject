@@ -6,12 +6,13 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.widget.Toast
 import dagger.android.DaggerActivity
+import dagger.android.support.DaggerAppCompatActivity
 
 object Utils {
 
-//    fun DaggerActivity.showToast(msg: String) {
-//        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-//    }
+    fun DaggerAppCompatActivity.showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
 
     fun isTablet(context: Context): Boolean {
         return context.resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE

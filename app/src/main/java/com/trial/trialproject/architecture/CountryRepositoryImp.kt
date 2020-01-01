@@ -1,15 +1,16 @@
 package com.trial.trialproject.architecture
 
-import com.trial.trialproject.data.Employee
+import com.google.gson.JsonObject
 import com.trial.trialproject.retrofit.TrailServices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Response
 
 class CountryRepositoryImp(var mService: TrailServices) : CountryRepository {
-    override suspend fun getCountries(): List<Employee> {
+    override suspend fun getDataFromUrl(url: String): Response<JsonObject> {
         return withContext(Dispatchers.IO) {
-            mService.getCountries()
+            mService.getDataFromUrl(url).execute()
         }
     }
-
 }

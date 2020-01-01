@@ -1,8 +1,10 @@
 package com.trial.trialproject.architecture
 
-import com.trial.trialproject.data.Employee
+import com.google.gson.JsonObject
+import retrofit2.Response
 
 interface CountryRepository{
-    suspend fun getCountries():List<Employee>
+    suspend fun getDataFromUrl(url:String): Response<JsonObject>
+
 
 }
