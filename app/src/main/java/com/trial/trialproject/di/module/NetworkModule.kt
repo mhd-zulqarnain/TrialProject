@@ -1,6 +1,6 @@
 package com.trial.trialproject.di.module
 
-import com.trial.trialproject.retrofit.TrailServices
+import com.trial.trialproject.services.TrailServices
 import com.trial.trialproject.utils.Constants
 import dagger.Module
 import dagger.Provides

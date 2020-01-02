@@ -1,10 +1,9 @@
 package com.trial.trialproject.architecture
 
 import com.google.gson.JsonObject
-import com.trial.trialproject.retrofit.TrailServices
+import com.trial.trialproject.services.TrailServices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Call
 import retrofit2.Response
 
 class CountryRepositoryImp(var mService: TrailServices) : CountryRepository {

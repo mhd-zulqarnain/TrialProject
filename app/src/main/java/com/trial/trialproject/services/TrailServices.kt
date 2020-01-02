@@ -1,4 +1,4 @@
-package com.trial.trialproject.retrofit
+package com.trial.trialproject.services
 
 import com.google.gson.JsonObject
 import retrofit2.Call
