@@ -9,10 +9,10 @@ class Country {
     var id: Int? = null
     @SerializedName("name")
     @Expose
-    var name: String? = null
+    var name: String? = ""
     @SerializedName("iso_code")
     @Expose
-    var isoCode: String? = null
+    var isoCode: String = ""
     @SerializedName("country")
     @Expose
     var country: String? = null

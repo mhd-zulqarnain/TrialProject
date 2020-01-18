@@ -2,7 +2,7 @@ package com.trial.trialproject.di.module
 
 import com.trial.trialproject.architecture.CountryRepository
 import com.trial.trialproject.architecture.CountryRepositoryImp
-import com.trial.trialproject.retrofit.TrailServices
+import com.trial.trialproject.services.TrailServices
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
