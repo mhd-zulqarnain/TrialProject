@@ -123,21 +123,21 @@ class MainActivity : DaggerAppCompatActivity() {
                 if (response.body()?.status == true && response.body()?.code == 200) {
                     if (response.body()!!.data?.totalProducts != 0 && response.body()!!.data?.products!!.isNotEmpty()) {
 
-                        masterProductRepository.insertMasterProducts(response.body()?.data?.products!!)
+//                        masterProductRepository.insertMasterProducts(response.body()?.data?.products!!)
 
                         val totalPrd = response.body()!!.data?.totalProducts!!.toInt()
                         val pages = Math.ceil(totalPrd.toDouble() / 25).toInt()
-                        Timber.e("Do Syn Work Pages :$pages")
+//                        Timber.e("Do Syn Work Pages :$pages")
 
                         for (innerpage in 2..pages) {
-                            getProductList(clint, adminId, storeId, innerpage)
+//                            getProductList(clint, adminId, storeId, innerpage)
                         }
 
                         response.body()?.data?.products!!.forEach {
                             it.variants.forEach { variant ->
                                 variant.productId = it.storeProductId.toLong()
                                 variant.productName = it.productName!!
-                                masterVariantRepository.insertMasterVariant(variant)
+//                                masterVariantRepository.insertMasterVariant(variant)
                             }
                         }
 
@@ -145,7 +145,7 @@ class MainActivity : DaggerAppCompatActivity() {
                 }
             }
         } else {
-            Timber.e("response is null, Message:${response.message()} ErrorBody:${response.errorBody()} Code:${response.code()}")
+//            Timber.e("response is null, Message:${response.message()} ErrorBody:${response.errorBody()} Code:${response.code()}")
         }
 
     }
